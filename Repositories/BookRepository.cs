@@ -34,7 +34,6 @@ namespace MyLibrary.Repositories
         public void UpdateBook(Book book)
         {
             _dbContext.Entry(book).State = EntityState.Modified;
-            Console.WriteLine(book.Isbn);
             _dbContext.SaveChanges();
         }
 

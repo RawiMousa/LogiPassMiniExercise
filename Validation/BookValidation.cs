@@ -27,7 +27,7 @@ namespace MyLibrary.Validation
             }
 
             // Validating the Title
-            string titlePattern = @"^[A-Za-z0-9.]{4,25}$";
+            string titlePattern = @"^[A-Za-z0-9. ]{4,25}$";
             bool isValidTitle = Regex.IsMatch(book.Title, titlePattern);
 
             if (!isValidTitle)

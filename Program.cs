@@ -3,13 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using MyLibrary.Data;
 using MyLibrary.Controllers;
 using MyLibrary.Repositories;
-using Serilog;
-using Serilog.Events;
+
+
 
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = builder.Configuration;
 // Add services to the container.
+
 
 builder.Services.AddDbContext<BookDbContext>(options =>
 {
@@ -19,6 +20,7 @@ builder.Services.AddDbContext<BookDbContext>(options =>
 
 
 
+builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddScoped<AuthorRepository>();
 builder.Services.AddScoped<BookRepository>();
@@ -36,6 +38,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    // app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
@@ -44,6 +47,16 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapRazorPages();
+});
+
 app.MapControllers();
+
 
 app.Run();

@@ -1,0 +1,176 @@
+body{
+    background-image: url('/images/121005948.jpg');
+}
+
+
+
+h1 {
+    color: #428bdf;
+    font-size: 50px;
+    font-weight: bolder;
+    font-family: fantasy;
+    font-style: oblique;
+    margin-top: 100px;
+    position: fixed;
+    left: 20px; /* Adjust the value as per your preference */
+    top: 20px; /* Adjust the value as per your preference */
+    z-index: 999; /* Ensure the heading appears above other elements if necessary */
+}
+
+
+
+nav {
+    background-color: #489cd4;
+    border-radius: 6px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    position: fixed;
+    left: 0px; 
+    right: 1px;
+    z-index: 999; /* Ensure the heading appears above other elements if necessary */
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+li {
+    text-align: center;
+    margin: 0 10px;
+}
+
+li a {
+    display: block;
+    font-size: larger;
+    font-weight: bolder;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+
+#bookDropdown{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3%;
+    position: fixed;
+    top: 8%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-width: 90%;
+    font-size: larger;
+    font-family: fantasy;
+    font-style: oblique;
+    font-weight: bolder;
+  }
+  
+
+
+
+
+
+
+#bookDetails {
+    display: ruby-base;
+    justify-content: center;
+    align-items: center;
+    height: 3%;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    border-radius: 5px;
+    max-width: 90%;
+    font-size: larger;
+    font-family: fantasy;
+    font-style: oblique;
+    font-weight: bolder;
+}
+
+
+#EditButton {
+    width: 100%;
+    padding: 5px;
+    background-color: #428bdf;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+#EditButton:focus {
+    outline: none; /* Remove the focus outline */
+}
+
+
+#successMsg {
+    background-color: #45a148;
+    color: white;
+    padding: 7px;
+    padding-bottom: 30px;
+    justify-content: center;
+    align-items: center;
+    height: 4%;
+    position: fixed;
+    top: 14%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 6px;
+    font-size: larger;
+    font-weight: bolder;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  
+
+
+
+#editFormContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    width: 400px;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  #editFormContainer input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+  }
+  
+  #editFormContainer input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #428bdf;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+  }
+  
+  #editFormContainer input[type="submit"]:hover {
+    background-color: #3272b1;
+  }
+  

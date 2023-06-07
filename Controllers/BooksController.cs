@@ -80,13 +80,21 @@ namespace MyLibrary.Controllers
                 return NotFound();
             }
 
+            // Validating the book details using the custom validation module BookValidation
+            List<string> validationErrors = BookValidation.ValidateBook(updatedBook, _authorRepository);
+            if (validationErrors.Count > 0)
+            {
+                foreach (var error in validationErrors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+                return BadRequest(ModelState);
+            }
+
             existingBook.Title = updatedBook.Title;
             existingBook.AuthorId = updatedBook.AuthorId;
             existingBook.Isbn = updatedBook.Isbn;
             existingBook.Year = updatedBook.Year;
-
-            Console.WriteLine(updatedBook.Isbn);
-            Console.WriteLine(existingBook.Isbn);
 
             _bookRepository.UpdateBook(existingBook);
 

@@ -1,11 +1,88 @@
 {
   "Version": 1,
-  "Hash": "KKkPfvT+z0H8hyL7Np7TFzxxdJO7Xw0HZGQM1eL16aQ=",
+  "Hash": "WI4nyJnac1INabE9aEzQRgESmuJ7uBSJ0IWXydQ+sDE=",
   "Source": "MyLibrary",
   "BasePath": "_content/MyLibrary",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "MyLibrary/wwwroot",
+      "Source": "MyLibrary",
+      "ContentRoot": "/home/rawimousa/Code/C#/MyLibrary/wwwroot/",
+      "BasePath": "_content/MyLibrary",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/home/rawimousa/Code/C#/MyLibrary/wwwroot/css/Index.css",
+      "SourceId": "MyLibrary",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/rawimousa/Code/C#/MyLibrary/wwwroot/",
+      "BasePath": "_content/MyLibrary",
+      "RelativePath": "css/Index.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/Index.css"
+    },
+    {
+      "Identity": "/home/rawimousa/Code/C#/MyLibrary/wwwroot/images/121005948.jpg",
+      "SourceId": "MyLibrary",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/rawimousa/Code/C#/MyLibrary/wwwroot/",
+      "BasePath": "_content/MyLibrary",
+      "RelativePath": "images/121005948.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/images/121005948.jpg"
+    },
+    {
+      "Identity": "/home/rawimousa/Code/C#/MyLibrary/wwwroot/js/Books.js",
+      "SourceId": "MyLibrary",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/rawimousa/Code/C#/MyLibrary/wwwroot/",
+      "BasePath": "_content/MyLibrary",
+      "RelativePath": "js/Books.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/Books.js"
+    },
+    {
+      "Identity": "/home/rawimousa/Code/C#/MyLibrary/wwwroot/js/test.js",
+      "SourceId": "MyLibrary",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/rawimousa/Code/C#/MyLibrary/wwwroot/",
+      "BasePath": "_content/MyLibrary",
+      "RelativePath": "js/test.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/test.js"
+    }
+  ]
 }
