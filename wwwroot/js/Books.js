@@ -24,9 +24,7 @@ function loadBooks() {
                 bookDropdown.style.display = 'block'; // Show the dropdown
             })
             .catch(error => console.log(error));
-    } else {
-        bookDropdown.style.display = 'none'; // Hide the dropdown if already visible
-    }
+    } 
     // This event listener , acts upon selecting a specific book, and fetches the book using the ID and displays it using the displayBookDetails
     // When selecting another book , or returning the selection to 'Select a book' , the clearBookDetails method is executed
     bookDropdown.addEventListener('change', function() {
@@ -60,9 +58,6 @@ function clearBookDetails() {
     const bookDetailsContainer = document.getElementById('bookDetails');
     bookDetailsContainer.innerHTML = ''; // Clear the book details container
 }
-
-
-
 
 
 // This function displays a specific book detail upon selecting
@@ -107,122 +102,162 @@ function displayBookDetails(book) {
 }
 
 
-
-
 // This function displays/creates the form with the current data of a specific book ,and allows us to edit the info.
 function handleEditButtonClick(book) {
-    // Create a form element
-    const form = document.createElement('form');
 
-    // Create labels for the fields
+    // Creating a form element
+    const form = document.createElement('form');
+  
+    // Creating labels for the fields
     const titleLabel = document.createElement('label');
     titleLabel.textContent = 'Title: ';
-    const isbnLabel = document.createElement('label');
-    isbnLabel.textContent = 'ISBN: ';
-    const yearLabel = document.createElement('label');
-    yearLabel.textContent = 'Publication Year: ';
 
-    // Create input elements for the editable fields
+    // Creating input elements for the editable fields
     const titleInput = document.createElement('input');
     titleInput.type = 'text';
     titleInput.value = book.title;
-    
+    titleInput.name = 'title';
+
+    // Creating error elements for the suitable fields (if any errors occur)
+    const titleError = document.createElement('div');
+    titleError.classList.add('error-message', 'title-error'); // Added 'title-error' class
+  
+    const isbnLabel = document.createElement('label');
+    isbnLabel.textContent = 'ISBN: ';
     const isbnInput = document.createElement('input');
     isbnInput.type = 'text';
     isbnInput.value = book.isbn;
-    
+    isbnInput.name = 'isbn';
+  
+    const isbnError = document.createElement('div');
+    isbnError.classList.add('error-message', 'isbn-error'); // Added 'isbn-error' class
+  
+    const yearLabel = document.createElement('label');
+    yearLabel.textContent = 'Publication Year: ';
     const yearInput = document.createElement('input');
     yearInput.type = 'text';
     yearInput.value = book.year;
-
-    // Create a submit button for the form
+    yearInput.name = 'year';
+  
+    const yearError = document.createElement('div');
+    yearError.classList.add('error-message', 'year-error'); // Added 'year-error' class
+  
     const submitButton = document.createElement('input');
     submitButton.type = 'submit';
     submitButton.value = 'Save';
-
-    // Append the input elements and submit button to the form
-    // Append the labels and input elements to the form
+  
+    // Appending the input,label ,error elements and submit button to the form
     form.appendChild(titleLabel);
     form.appendChild(titleInput);
-    form.appendChild(document.createElement('br')); // Add line break for spacing
+    form.appendChild(titleError);
+    form.appendChild(document.createElement('br'));
+  
     form.appendChild(isbnLabel);
     form.appendChild(isbnInput);
+    form.appendChild(isbnError);
     form.appendChild(document.createElement('br'));
+  
     form.appendChild(yearLabel);
     form.appendChild(yearInput);
+    form.appendChild(yearError);
     form.appendChild(document.createElement('br'));
+  
     form.appendChild(submitButton);
-
-    // Add an event listener to the form's submit event
+  
+    // Adding an event listener to the form's submit event
     form.addEventListener('submit', (event) => {
-        event.preventDefault(); // Prevent form submission
-        
-        // Call the function to handle form submission and update book details
-        handleFormSubmit(book, titleInput.value, isbnInput.value, yearInput.value);
+      event.preventDefault();       // Preventing form submission
+      const formData = new FormData(form);
+      const editedBook = Object.fromEntries(formData.entries());
+
+    // Calling the function to handle form submission and update book details
+      handleFormSubmit(book, editedBook, form); 
     });
 
-    // Clear the edit form container and append the form
+    // Clearing the form
     const editFormContainer = document.getElementById('editFormContainer');
     editFormContainer.innerHTML = '';
     editFormContainer.appendChild(form);
 }
-
-
+  
 
 // This function performs the PUT request/method , to update the selected book
+function handleFormSubmit(book, editedBook, form) {
+    // Declaring the Error variable 
+    const titleError = form.querySelector('.title-error');
+    const isbnError = form.querySelector('.isbn-error');
+    const yearError = form.querySelector('.year-error');
 
-function handleFormSubmit(book, title, isbn, year) {
-    // const successMsg = 'Book updated successfully';
+  
     const updatedBook = {
-        id: book.id,
-        title: title,
-        isbn: isbn,
-        year: year,
-        authorId: book.authorId
+      id: book.id,
+      ...editedBook,
+      authorId: book.authorId
     };
-
+  
     fetch(`/api/books/${book.id}`, {
-        method: 'PUT',
-        headers: {
+      method: 'PUT',
+      headers: {
         'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(updatedBook)
+      },
+      body: JSON.stringify(updatedBook)
     })
-        .then(response => {
+      .then(response => {
         if (response.ok || response.status === 204) {
-            // Book updated successfully
-            // Display success message
-            const successMsgElement = document.getElementById('successMsg');
-            if (successMsgElement) {
-              successMsgElement.textContent = 'Book updated successfully';
-              successMsgElement.style.display = 'block';
-              successMsgElement.textContent = 'Book updated successfully';
-              // Hide the success message after 3 seconds
-              setTimeout(() => {
-                successMsgElement.style.display = 'none';
-              }, 3000);}
-
-            // Reload the book details to reflect the changes
-            fetch(`/api/books/${book.id}`)
+          // Book updated successfully
+          // Displaying success message
+          const successMsgElement = document.getElementById('successMsg');
+          if (successMsgElement) {
+            successMsgElement.textContent = 'Book updated successfully!';
+            successMsgElement.style.display = 'block';
+            // Hiding the success message after 3 seconds
+            setTimeout(() => {
+              successMsgElement.style.display = 'none';
+            }, 2000);
+          }
+  
+          // Reloading the book details to reflect the changes
+          fetch(`/api/books/${book.id}`)
             .then(response => response.json())
             .then(book => {
-                clearBookDetails();
-                displayBookDetails(book);
+              clearBookDetails();
+              displayBookDetails(book);
+              // Reseting the error variables when a updating is successfull
+              titleError.textContent = '';
+              isbnError.textContent = '';
+              yearError.textContent = '';
             })
             .catch(error => console.log(error));
+        } else if (response.status === 400) {
+          // Error updating the book
+          response.json().then(data => {
+            // The data that returns from the server when the status is 400, is a string which describes the field and the problem
+              if (data[""]) {
+                const errorMessage = data[""][0];
+                // Setting the proper error message
+                if (errorMessage.includes("Title")) {
+                    titleError.textContent = errorMessage;
+                }
+                if (errorMessage.includes("ISBN")) {
+                    isbnError.textContent = errorMessage;
+                }
+                if (errorMessage.includes("Year")) {
+                    yearError.textContent = errorMessage;
+                }
+            }
+            // }
+          });
         } else {
-            // Error updating the book
-            console.log('Error updating book:', response.status);
+          console.log('Error updating book:', response.status);
         }
-        })
-        .catch(error => console.log(error));
+      })
+      .catch(error => console.log(error));
 }
 
 
-
-
-
-
+function AddANewBook() {
+    
+}
 
 
 
