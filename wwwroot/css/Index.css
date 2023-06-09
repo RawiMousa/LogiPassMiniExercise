@@ -11,7 +11,7 @@ h1 {
     font-family: fantasy;
     font-style: oblique;
     margin-top: 100px;
-    position: fixed;
+    position: absolute;
     left: 20px; 
     top: 20px; 
     z-index: 999; 
@@ -26,7 +26,7 @@ nav {
     display: flex;
     justify-content: center;
     height: 50px;
-    position: fixed;
+    position: absolute;
     left: 0px; 
     right: 1px;
     z-index: 999; 
@@ -66,8 +66,37 @@ li a {
     font-style: oblique;
     font-weight: bolder;
   }
-  
 
+/* #addNewBook{
+    color: black;
+    position: relative;
+    left: 490px; 
+    top: 60px; 
+    z-index: 999;
+    font-size: larger;
+    font-family: fantasy;
+    font-weight: bolder;
+  } */
+  
+  #addNewBook {
+    color: black;
+    position: relative;
+    left: 485px; 
+    top: 60px; 
+    z-index: 999;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #72cbff;
+    font-weight: bolder;
+    text-decoration: none;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+  }
+  
+  #addNewBook:hover {
+    background-color: #ccc;
+  }
 
 
 #bookDetails {
@@ -167,3 +196,30 @@ li a {
    }
 
   
+
+
+
+.field-details-icon {
+    cursor: pointer;
+    position: relative;
+    left: 380px; 
+    top: -45px; 
+
+}
+
+.field-details-popup {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 150%;
+    padding: 10px;
+    background-color: #f9f9f9;
+    /* border: 1px solid #ccc; */
+    border-radius: 4px;
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); */
+    /* z-index: 999; */
+}
+
+.field-details-popup.show {
+    display:contents;
+}
