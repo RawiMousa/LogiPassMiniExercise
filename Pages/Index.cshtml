@@ -13,7 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/Index.css" />
-    <script src="/js/Books.js"></script>
+    <script src="/js/Library.js"></script>
 
 
     <title>Document</title>
@@ -23,21 +23,32 @@
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="#" onclick="loadBooks()" >Books</a></li>
-            <li><a href="/authors">Authors</a></li>
+            <li><a href="#" onclick="loadAuthors()">Authors</a></li>
         </ul>
     </nav>
    <h1>MyLibrary</h1>
+
     <a id="addNewBook" style="display: none;" onclick="handleAddNewBookClick()">Add a new book</a>
+
         <div id="fieldDetailsPopupContainer"> </div>
+
     <select id="bookDropdown" style="display: none;" ></select> 
-    <div id="bookDetails"></div>
+
+    <div id="bookDetails" style="display: block;"></div>
+
     <p id="successMsg" style="display: none;"></p>
 
-    <div id="editFormContainer">
+    <div id="editFormContainer" style="display: block;" >
     </div> 
-    <div class="error-message title-error"></div>
-<div class="error-message isbn-error"></div>
-<div class="error-message year-error"></div>
+
+    <div class="title-error"></div>
+    <div class="isbn-error"></div>
+    <div class="year-error"></div>
+
+    <select id="authorDropdown" style="display: none;" ></select>
+
+    <div id="authorDetails"></div>
+
 
 </body>
 </html>

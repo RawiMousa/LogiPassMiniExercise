@@ -32,7 +32,7 @@ namespace MyLibrary.Validation
 
             if (!isValidTitle)
             {
-                errors.Add("Title should contain English letters, dots, and should be 4-25 characters in length.");
+                errors.Add("Title should contain English letters, dots,numbers, and should be 4-25 characters in length.");
             }
 
             // Validating the Year

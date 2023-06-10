@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "zti/50v7Ud+narpQipIGMGKr2MyGlqkd8nHi+DNfLjo=",
+  "Hash": "qX6HGUl2HkjWJFRhOAk05MkJJyHpajL4LAwycIwSU4k=",
   "Source": "MyLibrary",
   "BasePath": "_content/MyLibrary",
   "Mode": "Default",
@@ -51,12 +51,12 @@
       "OriginalItemSpec": "wwwroot/images/121005948.jpg"
     },
     {
-      "Identity": "/home/rawimousa/Code/C#/MyLibrary/wwwroot/js/Books.js",
+      "Identity": "/home/rawimousa/Code/C#/MyLibrary/wwwroot/js/Library.js",
       "SourceId": "MyLibrary",
       "SourceType": "Discovered",
       "ContentRoot": "/home/rawimousa/Code/C#/MyLibrary/wwwroot/",
       "BasePath": "_content/MyLibrary",
-      "RelativePath": "js/Books.js",
+      "RelativePath": "js/Library.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -65,7 +65,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/js/Books.js"
+      "OriginalItemSpec": "wwwroot/js/Library.js"
     }
   ]
 }

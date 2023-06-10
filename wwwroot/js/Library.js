@@ -2,6 +2,8 @@
 function loadBooks() {
     const bookDropdown = document.getElementById('bookDropdown');
     const addNewBookLink = document.getElementById('addNewBook');
+    const authorDropdown = document.getElementById('authorDropdown');
+    authorDropdown.style.display = 'none';
 
     if (bookDropdown.style.display === 'none') {
         fetch('/api/books')
@@ -32,6 +34,10 @@ function loadBooks() {
     bookDropdown.addEventListener('change', function() {
         const selectedBookId = this.value;
         if (selectedBookId) {
+
+            const bookDetails = document.getElementById('bookDetails');
+            bookDetails.style.display = 'block';
+
             fetch(`/api/books/${selectedBookId}`)
                 .then(response => response.json())
                 .then(book => {
@@ -96,6 +102,9 @@ function displayBookDetails(book) {
         bookDetailsContainer.appendChild(authorElement);
         bookDetailsContainer.appendChild(yearElement);
         bookDetailsContainer.appendChild(editButton);
+        bookDetailsContainer.appendChild(document.createElement('br'));
+        bookDetailsContainer.appendChild(document.createElement('br'));
+        bookDetailsContainer.appendChild(removeButton);
     })
     .catch(error => console.log(error));
     
@@ -107,16 +116,26 @@ function displayBookDetails(book) {
     editButton.textContent = 'Edit book';
     editButton.id = 'EditButton';
     editButton.addEventListener('click', () => {
-        // Call the function to handle the edit button click
+        // Calling the function to handle the edit button click
         handleEditButtonClick(book);
     });
-    
+
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Remove book';
+    removeButton.id = 'RemoveButton';
+    removeButton.addEventListener('click', () => {
+        // Calling the function to handle remove button click
+        handleRemoveButtonClick(book);
+    }
+    )  
 }
 
 
 // This function displays/creates the form with the current data of a specific book ,and allows us to edit the info.
 function handleEditButtonClick(book) {
 
+    const formContainer = document.getElementById('editFormContainer');
+    formContainer.style.display = 'block';
     // Creating a form element
     const form = document.createElement('form');
   
@@ -343,13 +362,18 @@ function createFieldContainer(labelText, fieldName, details, isDropdown = false,
 
     const detailsPopup = createFieldDetailsPopup(details);
 
+    // Creating error element for the field
+    const error = document.createElement('div');
+    error.classList.add(`${fieldName}-error`);
+
     // Handling click event on the details icon to show/hide the popup
     handleDetailsIconHover(detailsIcon, detailsPopup);
 
-    // Appending label, input, details icon, and details popup to the field container
+    // Appending label, input, details icon, error element, and details popup to the field container
     fieldContainer.appendChild(label);
     fieldContainer.appendChild(input);
     fieldContainer.appendChild(detailsIcon);
+    fieldContainer.appendChild(error);
     fieldContainer.appendChild(detailsPopup);
 
     return fieldContainer;
@@ -362,7 +386,7 @@ function AddNewBook() {
     const addBookForm = document.createElement('form');
 
     // Creating field containers for each field
-    const titleFieldContainer = createFieldContainer('Title: ', 'title', 'Title should contain English letters, dots, and should be 4-25 characters in length.');
+    const titleFieldContainer = createFieldContainer('Title: ', 'title', 'Title should contain English letters, dots,numbers, and should be 4-25 characters in length.');
     const isbnFieldContainer = createFieldContainer('ISBN: ', 'isbn', 'ISBN should be between 10-15 characters, including numbers and - only.');
     const yearFieldContainer = createFieldContainer('Publication Year: ', 'year', 'Year should be between 1900 and the current year.');
     
@@ -412,15 +436,14 @@ function AddNewBook() {
     // Clearing the form
     const formContainer = document.getElementById('editFormContainer');
     formContainer.innerHTML = '';
+    formContainer.style.display = 'block';
+
     formContainer.appendChild(addBookForm);
 }
 
 
-
-
+// This function handles the AddNewBook submission , returns a success message or an error message accordingly
 function handleAddBookSubmit(newBook, form) {
-
-    // Declaring the Error variable 
     const titleError = form.querySelector('.title-error');
     const isbnError = form.querySelector('.isbn-error');
     const yearError = form.querySelector('.year-error');
@@ -428,7 +451,6 @@ function handleAddBookSubmit(newBook, form) {
     isbnError.textContent = '';
     yearError.textContent = '';
 
-    // Sending a POST request to the server with the new book data
     fetch('/api/books', {
         method: 'POST',
         headers: {
@@ -438,27 +460,28 @@ function handleAddBookSubmit(newBook, form) {
     })
     .then(response => {
         if (response.ok || response.status === 204) {
-          // Book updated successfully
-          // Displaying success message
-          const successMsgElement = document.getElementById('successMsg');
-          if (successMsgElement) {
-            successMsgElement.textContent = 'Book updated successfully!';
-            successMsgElement.style.display = 'block';
-            // Hiding the success message after 3 seconds
-            setTimeout(() => {
-              successMsgElement.style.display = 'none';
-            }, 2000);
-            // titleError.textContent = '';
-            // isbnError.textContent = '';
-            // yearError.textContent = '';
+            const successMsgElement = document.getElementById('successMsg');
+            if (successMsgElement) {
+                successMsgElement.textContent = 'Book added successfully!';
+                successMsgElement.style.display = 'block';
+                setTimeout(() => {
+                    successMsgElement.style.display = 'none';
+                }, 2000);
             }
-            // Reseting the error variables when a updating is successfull
-
-
         } else if (response.status === 400) {
           // Error updating the book
           response.json().then(data => {
-            console.log(data.title);
+            console.log(data);
+            // Displaying error messages for each field
+            if (data.title) {
+                titleError.textContent = data.title;
+            }
+            if (data.isbn) {
+                isbnError.textContent = data.isbn;
+            }
+            if (data.year) {
+                yearError.textContent = data.year;
+            }
             // The data that returns from the server when the status is 400, is a string which describes the field and the problem
               if (data[""]) {
                 const errorMessage = data[""][0];
@@ -475,9 +498,183 @@ function handleAddBookSubmit(newBook, form) {
             }
           });
         } else {
-          console.log('Error updating book:', response.status);
+            console.log('Error updating book:', response.status);
         }
-      })
-      .catch(error => console.log(error));
+    })
+    .catch(error => console.log(error));
 }
 
+// This function handles the remove of a specific book from the database
+function handleRemoveButtonClick(book) {
+    // Fetching the API endpoint and sending a request to remove the book via book.id
+    fetch(`api/books/${book.id}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok || response.status === 204) {
+            // Book removed successfully
+            // Display success message or perform any necessary actions
+            const successMsgElement = document.getElementById('successMsg');
+            if (successMsgElement) {
+              successMsgElement.textContent = 'Book removed successfully!';
+              successMsgElement.style.display = 'block';
+              // Hiding the success message after 3 seconds
+              setTimeout(() => {
+                successMsgElement.style.display = 'none';
+              }, 2000);
+              
+            }
+            console.log('Book removed successfully!');
+        } else {
+            // Error removing the book
+            console.log('Error removing book:', response.status);
+        }
+    })
+    .catch(error => console.log(error));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// This function retrieves all authors in the database
+function loadAuthors() {
+
+    const authorDropdown = document.getElementById('authorDropdown');
+    const addNewAuthorLink = document.getElementById('addNewAuthor');
+
+    const bookDropdown = document.getElementById('bookDropdown');
+    bookDropdown.style.display = 'none';
+
+    const addNewBookLink = document.getElementById('addNewBook');
+    addNewBookLink.style.display = 'none';
+
+    const formContainer = document.getElementById('editFormContainer');
+    formContainer.style.display = 'none';
+
+    const bookDetails = document.getElementById('bookDetails');
+    bookDetails.style.display = 'none';
+
+
+    if (authorDropdown.style.display === 'none') {
+        fetch('/api/authors')
+            .then(response => response.json())
+            .then(data => {
+                authorDropdown.innerHTML = ''; // Clear existing options
+                
+                // Adding the default option as the first option
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Select an author';
+                authorDropdown.appendChild(defaultOption);
+                
+                data.forEach(author => {
+                    const option = document.createElement('option');
+                    option.value = author.id;
+                    option.textContent = author.name;
+                    authorDropdown.appendChild(option);
+                });
+                
+                authorDropdown.style.display = 'block'; // Show the dropdown
+                addNewAuthorLink.style.display = 'inline-block'; // Show the "Add a new author" link
+                
+            })
+            .catch(error => console.log(error));
+    } 
+    // This event listener , acts upon selecting a specific author, and fetches the author using the ID and displays it using the displayAuthorDetails
+    // When selecting another author , or returning the selection to 'Select an author' , the clearAuthorDetails method is executed
+    authorDropdown.addEventListener('change', function() {
+        const selectedAuthorId = this.value;
+        if (selectedAuthorId) {
+            fetch(`/api/authors/${selectedAuthorId}`)
+                .then(response => response.json())
+                .then(author => {
+                    clearAuthorDetails();
+                    displayAuthorDetails(book);
+                    clearAuthorEditingContainer(editAuthorFormContainer);
+                })
+                .catch(error => console.log(error));
+        } else {
+            clearAuthorDetails();
+            clearAuthorEditingContainer(editAuthorFormContainer); // Clear the book editing container
+        }
+    });
+    // Add a click event listener to the "Add a new author" link
+    addNewAuthorLink.addEventListener('click', handleAddNewAuthorClick);
+}
+
+
+// This assisting function makes the dropDown list of the authors to disappear when clicking on add a new book in order to present the form
+function handleAddNewAuthorClick() {
+    const authorDropdown = document.getElementById('authorDropdown');
+    authorDropdown.style.display = 'none'; // Hide the dropdown
+    AddNewAuthor();
+    clearAuthorDetails();
+}
+
+
+// This function clears the container contents (the selected author edit details) when switching between authors
+function clearAuthorEditingContainer(container) {
+    container.innerHTML = ''; // Clear the container contents
+}
+
+
+// This function clears the book details container (the display)
+function clearAuthorDetails() {
+    const authorDetailsContainer = document.getElementById('authorDetails');
+    authorDetailsContainer.innerHTML = ''; // Clear the book details container
+}
+
+
+
+// This function displays a specific author details upon selecting
+function displayAuthorDetails(author) {
+    const authorDetailsContainer = document.getElementById('authorDetails');
+    
+    const nameElement = document.createElement('p');
+    nameElement.textContent = author.name;
+    
+    const biographyElement = document.createElement('p');
+    biographyElement.textContent = 'Biography: ' + author.biography;
+
+    // Clearing the book details container
+    authorDetailsContainer.innerHTML = '';
+    // Appending book details elements to the container
+    authorDetailsContainer.appendChild(nameElement);
+    authorDetailsContainer.appendChild(biographyElement);
+    authorDetailsContainer.appendChild(editButton);
+    authorDetailsContainer.appendChild(document.createElement('br'));
+    authorDetailsContainer.appendChild(document.createElement('br'));
+    authorDetailsContainer.appendChild(removeButton);
+
+
+    // Upon clicking the edit button , it will call the handleEditButtonClick , which will allow to edit the selected book
+    const editButton = document.createElement('button');
+    editButton.textContent = 'Edit author';
+    editButton.id = 'EditButton';
+    editButton.addEventListener('click', () => {
+        // Calling the function to handle the edit button click
+        handleAuthorEditButtonClick(author);
+    });
+
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Remove author';
+    removeButton.id = 'RemoveButton';
+    removeButton.addEventListener('click', () => {
+        // Calling the function to handle remove button click
+        handleRemoveButtonClick(book);
+    }
+    )  
+}

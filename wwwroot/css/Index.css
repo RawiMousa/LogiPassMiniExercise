@@ -65,20 +65,23 @@ li a {
     font-family: fantasy;
     font-style: oblique;
     font-weight: bolder;
-  }
+}
 
-/* #addNewBook{
-    color: black;
+
+#authorDropdown{
     position: relative;
-    left: 490px; 
-    top: 60px; 
+    left: 470px; 
+    top: 80px; 
     z-index: 999;
     font-size: larger;
     font-family: fantasy;
+    font-style: oblique;
     font-weight: bolder;
-  } */
+}
+
+
   
-  #addNewBook {
+#addNewBook {
     color: black;
     position: relative;
     left: 485px; 
@@ -94,12 +97,25 @@ li a {
     cursor: pointer;
   }
   
-  #addNewBook:hover {
+#addNewBook:hover {
     background-color: #ccc;
   }
 
 
 #bookDetails {
+    position: relative;
+    left: 480px; 
+    top: 120px; 
+    z-index: 999;
+    max-width: 90%;
+    font-size: larger;
+    font-family: fantasy;
+    font-style: oblique;
+    font-weight: bolder;
+}
+
+
+#authorDetails {
     position: relative;
     left: 480px; 
     top: 120px; 
@@ -127,11 +143,26 @@ li a {
 }
 
 
+#RemoveButton {
+    width: 15%;
+    padding: 5px;
+    background-color: #df5442;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+#RemoveButton:focus {
+    outline: none; 
+}
+
+
 #successMsg {
     color: rgb(30, 107, 27);
     position: relative;
     left: 430px; 
-    top: 200px; 
+    top: 180px; 
     z-index: 999;
     border-radius: 6px;
     font-size: larger;
@@ -145,7 +176,7 @@ li a {
 #editFormContainer {
     position: relative;
     left: 370px; 
-    top: 200px; 
+    top: 150px; 
     z-index: 999;
     width: 400px;
     padding: 20px;
@@ -214,10 +245,7 @@ li a {
     left: 150%;
     padding: 10px;
     background-color: #f9f9f9;
-    /* border: 1px solid #ccc; */
     border-radius: 4px;
-    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); */
-    /* z-index: 999; */
 }
 
 .field-details-popup.show {
