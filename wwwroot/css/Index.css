@@ -95,11 +95,32 @@ li a {
     border: none;
     border-radius: 7px;
     cursor: pointer;
-  }
+}
   
 #addNewBook:hover {
     background-color: #ccc;
-  }
+}
+
+
+#addNewAuthor {
+    color: black;
+    position: relative;
+    left: 470px; 
+    top: 60px; 
+    z-index: 999;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #72cbff;
+    font-weight: bolder;
+    text-decoration: none;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+  
+#addNewAuthor:hover {
+    background-color: #ccc;
+}
 
 
 #bookDetails {
@@ -125,6 +146,13 @@ li a {
     font-family: fantasy;
     font-style: oblique;
     font-weight: bolder;
+}
+
+#biography-content{
+    position: relative;
+    left: -300px; 
+    z-index: 999;
+    max-width: 90%;   
 }
 
 
@@ -168,10 +196,20 @@ li a {
     font-size: larger;
     font-weight: bolder;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  }
+}
   
 
-
+#authorSuccessMsg {
+    color: rgb(30, 107, 27);
+    position: relative;
+    left: 430px; 
+    top: 180px; 
+    z-index: 999;
+    border-radius: 6px;
+    font-size: larger;
+    font-weight: bolder;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
 
 #editFormContainer {
     position: relative;
@@ -181,7 +219,7 @@ li a {
     width: 400px;
     padding: 20px;
     border-radius: 5px;
-  }
+}
   
 #editFormContainer input[type="text"] {
     width: 100%;
@@ -189,7 +227,7 @@ li a {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 7px;
-  }
+}
   
 #editFormContainer input[type="submit"] {
     width: 100%;
@@ -206,26 +244,73 @@ li a {
   }
 
 
+
+#editAuthorFormContainer {
+    position: relative;
+    left: 370px; 
+    top: 150px; 
+    z-index: 999;
+    width: 400px;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+#editAuthorFormContainer input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+  }
+  
+#editAuthorFormContainer input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #428bdf;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+  
+#editAuthorFormContainer input[type="submit"]:hover {
+    background-color: #3272b1;
+}
+
+
 .year-error {
     color: rgb(129, 55, 55);
     border-radius: 6px;
     font-weight: bolder;
-   }
+}
   
 
 .isbn-error {
     color: rgb(129, 55, 55);
     border-radius: 6px;
     font-weight: bolder;
-   }
+}
 
 
 .title-error {
     color: rgb(129, 55, 55);
     border-radius: 6px;
     font-weight: bolder;
-   }
+}
 
+
+.name-error {
+    color: rgb(129, 55, 55);
+    border-radius: 6px;
+    font-weight: bolder;
+}
+
+
+.biography-error {
+    color: rgb(129, 55, 55);
+    border-radius: 6px;
+    font-weight: bolder;
+}
   
 
 
@@ -235,7 +320,6 @@ li a {
     position: relative;
     left: 380px; 
     top: -45px; 
-
 }
 
 .field-details-popup {
@@ -251,3 +335,21 @@ li a {
 .field-details-popup.show {
     display:contents;
 }
+
+
+
+#HomeIntro {
+    position: relative;
+    text-align: center;
+    display: flexbox;
+    justify-content: center;
+    align-items: center;
+    top: 150px; 
+    /* left: 450px; */
+    z-index: 999;
+    height: 90vh;
+    padding: 20px;
+    font-family: fantasy;
+    font-weight: bolder;
+    font-size: x-large;
+  }

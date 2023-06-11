@@ -21,7 +21,7 @@ namespace MyLibrary.Validation
             string isbnPattern = @"^[0-9\-]+$";
             bool isValidIsbn = Regex.IsMatch(book.Isbn, isbnPattern);
 
-            if ((book.Isbn.Length > 15) || (book.Isbn.Length < 10) || (!isValidIsbn))
+            if ((book.Isbn.Length > 15) || (book.Isbn.Length < 10) || (!isValidIsbn) || string.IsNullOrWhiteSpace(book.Isbn))
             {
                 errors.Add("ISBN should be between 10-15 characters, including numbers and '-' only.");
             }
@@ -30,14 +30,14 @@ namespace MyLibrary.Validation
             string titlePattern = @"^[A-Za-z0-9. ]{4,25}$";
             bool isValidTitle = Regex.IsMatch(book.Title, titlePattern);
 
-            if (!isValidTitle)
+            if (!isValidTitle || string.IsNullOrWhiteSpace(book.Title))
             {
                 errors.Add("Title should contain English letters, dots,numbers, and should be 4-25 characters in length.");
             }
 
             // Validating the Year
             int currentYear = DateTime.Now.Year;
-            if ((book.Year < 1900) || (book.Year > currentYear))
+            if ((book.Year < 1900) || (book.Year > currentYear) || string.IsNullOrWhiteSpace(book.Year.ToString()))
             {
                 errors.Add("Year should be between 1900 and the current year.");
             }

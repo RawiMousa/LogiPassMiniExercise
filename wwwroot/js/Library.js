@@ -1,9 +1,24 @@
 // This function retrieves all books in the database
 function loadBooks() {
+
     const bookDropdown = document.getElementById('bookDropdown');
+
     const addNewBookLink = document.getElementById('addNewBook');
+    
     const authorDropdown = document.getElementById('authorDropdown');
-    authorDropdown.style.display = 'none';
+    authorDropdown.style.display = 'none'; // Hiding the authorDropdown list
+
+    const authorDetails = document.getElementById('authorDetails');
+    authorDetails.style.display = 'none'; // Hiding the author details
+
+    const editAuthorFormContainer = document.getElementById('editAuthorFormContainer');
+    editAuthorFormContainer.style.display = 'none'; // Hiding the author edit form
+
+    const addNewAuthorLink = document.getElementById('addNewAuthor');
+    addNewAuthorLink.style.display = 'none'; // Hiding the 'add new author' link
+
+    const homeIntro = document.getElementById('HomeIntro');
+    homeIntro.style.display = 'none'; // Hiding the paragraph that appears in the Home tab
 
     if (bookDropdown.style.display === 'none') {
         fetch('/api/books')
@@ -24,8 +39,8 @@ function loadBooks() {
                     bookDropdown.appendChild(option);
                 });
                 
-                bookDropdown.style.display = 'block'; // Show the dropdown
-                addNewBookLink.style.display = 'inline-block'; // Show the "Add a new book" link
+                bookDropdown.style.display = 'block'; // Showing the dropdown
+                addNewBookLink.style.display = 'inline-block'; // Showing the "Add a new book" link
             })
             .catch(error => console.log(error));
     } 
@@ -48,10 +63,10 @@ function loadBooks() {
                 .catch(error => console.log(error));
         } else {
             clearBookDetails();
-            clearBookEditingContainer(editFormContainer); // Clear the book editing container
+            clearBookEditingContainer(editFormContainer); // Clearing the book editing container
         }
     });
-    // Add a click event listener to the "Add a new book" link
+    // Adding a click event listener to the "Add a new book" link
     addNewBookLink.addEventListener('click', handleAddNewBookClick);
 }
 
@@ -59,7 +74,7 @@ function loadBooks() {
 // This assisting function makes the dropDown list of the books to disappear when clicking on add a new book in order to present the form
 function handleAddNewBookClick() {
     const bookDropdown = document.getElementById('bookDropdown');
-    bookDropdown.style.display = 'none'; // Hide the dropdown
+    bookDropdown.style.display = 'none'; // Hiding the dropdown
     AddNewBook();
     clearBookDetails();
 }
@@ -67,28 +82,29 @@ function handleAddNewBookClick() {
 
 // This function clears the container contents (the selected book edit details) when switching between books
 function clearBookEditingContainer(container) {
-    container.innerHTML = ''; // Clear the container contents
+    container.innerHTML = ''; // Clearing the container contents
 }
 
 
 // This function clears the book details container (the display)
 function clearBookDetails() {
     const bookDetailsContainer = document.getElementById('bookDetails');
-    bookDetailsContainer.innerHTML = ''; // Clear the book details container
+    bookDetailsContainer.innerHTML = ''; // Clearing the book details container
 }
 
 
 // This function displays a specific book detail upon selecting
 function displayBookDetails(book) {
-    const bookDetailsContainer = document.getElementById('bookDetails');
+
+    const bookDetailsContainer = document.getElementById('bookDetails'); // Creating the variable which gets the html <div> 'bookDetails'
     
-    const titleElement = document.createElement('p');
+    const titleElement = document.createElement('p');  // Creating a <p> element for the title
     titleElement.textContent = book.title;
     
-    const isbnElement = document.createElement('p');
+    const isbnElement = document.createElement('p');  // Creating a <p> element for the isbn
     isbnElement.textContent = 'ISBN: ' + book.isbn;
     
-    fetch('/api/authors/' + book.authorId)
+    fetch('/api/authors/' + book.authorId)   // Fetching the author from the database via authorId to display it in the book details
     .then(response => response.json())
     .then(author => {
         const authorElement = document.createElement('p');
@@ -135,7 +151,7 @@ function displayBookDetails(book) {
 function handleEditButtonClick(book) {
 
     const formContainer = document.getElementById('editFormContainer');
-    formContainer.style.display = 'block';
+    formContainer.style.display = 'block';  // Showing the edit form of the book
     // Creating a form element
     const form = document.createElement('form');
   
@@ -316,7 +332,7 @@ function handleDetailsIconHover(icon, popup) {
 }
 
 
-// Helper function to create field details popup - This function serves AddNewBook()
+// Helper function to create field details popup - This function serves AddNewBook() and AddNewAuthor()
 function createFieldDetailsPopup(details) {
     const fieldDetailsPopup = document.createElement('div');
     fieldDetailsPopup.classList.add('field-details-popup');
@@ -330,7 +346,7 @@ function createFieldDetailsPopup(details) {
 }
 
 
-// Helper function to create field container - This function serves AddNewBook()
+// Helper function to create field container - This function serves AddNewBook() and AddNewAuthor()
 function createFieldContainer(labelText, fieldName, details, isDropdown = false, dropdownOptions = []) {
     const fieldContainer = document.createElement('div');
 
@@ -351,7 +367,7 @@ function createFieldContainer(labelText, fieldName, details, isDropdown = false,
     } else {
         input = document.createElement('input');
         input.type = 'text';
-        input.required;
+        input.required = true;
     }
     input.name = fieldName;
 
@@ -390,7 +406,7 @@ function AddNewBook() {
     const isbnFieldContainer = createFieldContainer('ISBN: ', 'isbn', 'ISBN should be between 10-15 characters, including numbers and - only.');
     const yearFieldContainer = createFieldContainer('Publication Year: ', 'year', 'Year should be between 1900 and the current year.');
     
-    // Fetching the authors data from the server
+    // Creating the author label
     const authorLabel = document.createElement('label');
     authorLabel.textContent = 'Author: ';
 
@@ -498,11 +514,12 @@ function handleAddBookSubmit(newBook, form) {
             }
           });
         } else {
-            console.log('Error updating book:', response.status);
+            console.log('Error adding book:', response.status);
         }
     })
     .catch(error => console.log(error));
 }
+
 
 // This function handles the remove of a specific book from the database
 function handleRemoveButtonClick(book) {
@@ -567,11 +584,14 @@ function loadAuthors() {
     const bookDetails = document.getElementById('bookDetails');
     bookDetails.style.display = 'none';
 
+    const homeIntro = document.getElementById('HomeIntro');
+    homeIntro.style.display = 'none';
 
     if (authorDropdown.style.display === 'none') {
         fetch('/api/authors')
             .then(response => response.json())
             .then(data => {
+
                 authorDropdown.innerHTML = ''; // Clear existing options
                 
                 // Adding the default option as the first option
@@ -598,17 +618,21 @@ function loadAuthors() {
     authorDropdown.addEventListener('change', function() {
         const selectedAuthorId = this.value;
         if (selectedAuthorId) {
+
+            const authorDetails = document.getElementById('authorDetails');
+            authorDetails.style.display = 'block';
+
             fetch(`/api/authors/${selectedAuthorId}`)
                 .then(response => response.json())
                 .then(author => {
                     clearAuthorDetails();
-                    displayAuthorDetails(book);
+                    displayAuthorDetails(author);
                     clearAuthorEditingContainer(editAuthorFormContainer);
                 })
                 .catch(error => console.log(error));
         } else {
             clearAuthorDetails();
-            clearAuthorEditingContainer(editAuthorFormContainer); // Clear the book editing container
+            clearAuthorEditingContainer(editAuthorFormContainer); // Clear the author editing container
         }
     });
     // Add a click event listener to the "Add a new author" link
@@ -616,7 +640,7 @@ function loadAuthors() {
 }
 
 
-// This assisting function makes the dropDown list of the authors to disappear when clicking on add a new book in order to present the form
+// This assisting function makes the dropDown list of the authors to disappear when clicking on add a new author in order to present the form
 function handleAddNewAuthorClick() {
     const authorDropdown = document.getElementById('authorDropdown');
     authorDropdown.style.display = 'none'; // Hide the dropdown
@@ -627,16 +651,15 @@ function handleAddNewAuthorClick() {
 
 // This function clears the container contents (the selected author edit details) when switching between authors
 function clearAuthorEditingContainer(container) {
-    container.innerHTML = ''; // Clear the container contents
+    container.innerHTML = ''; // Clearing the container contents
 }
 
 
-// This function clears the book details container (the display)
+// This function clears the author details container (the display)
 function clearAuthorDetails() {
     const authorDetailsContainer = document.getElementById('authorDetails');
-    authorDetailsContainer.innerHTML = ''; // Clear the book details container
+    authorDetailsContainer.innerHTML = ''; // Clearing the author details container
 }
-
 
 
 // This function displays a specific author details upon selecting
@@ -648,33 +671,369 @@ function displayAuthorDetails(author) {
     
     const biographyElement = document.createElement('p');
     biographyElement.textContent = 'Biography: ' + author.biography;
+    biographyElement.id = 'biography-content'
+
+    // Upon clicking the edit button , it will call the handleAuthorEditButtonClick , which will allow to edit the selected author
+    const editAuthorButton = document.createElement('button');
+    editAuthorButton.textContent = 'Edit author';
+    editAuthorButton.id = 'EditButton';
+
+    const removeAuthorButton = document.createElement('button');
+    removeAuthorButton.textContent = 'Remove author';
+    removeAuthorButton.id = 'RemoveButton';
+    
 
     // Clearing the book details container
     authorDetailsContainer.innerHTML = '';
     // Appending book details elements to the container
     authorDetailsContainer.appendChild(nameElement);
     authorDetailsContainer.appendChild(biographyElement);
-    authorDetailsContainer.appendChild(editButton);
+    authorDetailsContainer.appendChild(editAuthorButton);
     authorDetailsContainer.appendChild(document.createElement('br'));
     authorDetailsContainer.appendChild(document.createElement('br'));
-    authorDetailsContainer.appendChild(removeButton);
+    authorDetailsContainer.appendChild(removeAuthorButton);
 
-
-    // Upon clicking the edit button , it will call the handleEditButtonClick , which will allow to edit the selected book
-    const editButton = document.createElement('button');
-    editButton.textContent = 'Edit author';
-    editButton.id = 'EditButton';
-    editButton.addEventListener('click', () => {
+    editAuthorButton.addEventListener('click', () => {
         // Calling the function to handle the edit button click
         handleAuthorEditButtonClick(author);
     });
 
-    const removeButton = document.createElement('button');
-    removeButton.textContent = 'Remove author';
-    removeButton.id = 'RemoveButton';
-    removeButton.addEventListener('click', () => {
+    removeAuthorButton.addEventListener('click', () => {
         // Calling the function to handle remove button click
-        handleRemoveButtonClick(book);
+        handleRemoveAuthorButtonClick(author);
     }
     )  
+}
+
+
+// This function displays/creates the form with the current data of a specific author ,and allows us to edit the info.
+function handleAuthorEditButtonClick(author) {
+
+    const formContainer = document.getElementById('editAuthorFormContainer');
+    formContainer.style.display = 'block';
+    // Creating a form element
+    const form = document.createElement('form');
+  
+    // Creating labels for the fields
+    const nameLabel = document.createElement('label');
+    nameLabel.textContent = 'Name: ';
+
+    // Creating input elements for the editable fields
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.value = author.name;
+    nameInput.name = 'name';
+    nameInput.required = true;
+
+    // Creating error elements for the suitable fields (if any errors occur)
+    const nameError = document.createElement('div');
+    nameError.classList.add('error-message', 'name-error'); // Added 'title-error' class
+  
+    const biographyLabel = document.createElement('label');
+    biographyLabel.textContent = 'Biography: ';
+
+    const biographyInput = document.createElement('textarea');
+    biographyInput.value = author.biography;
+    biographyInput.name = 'biography';
+    biographyInput.rows = 5; // Setting the number of visible rows for the textarea
+    biographyInput.cols = 37; // Setting the number of visible columns for the textarea
+    biographyInput.required = true; // Setting the required field option to true , to make this field mandatory
+    
+  
+    const biographyError = document.createElement('div');
+    biographyError.classList.add('error-message', 'biography-error'); // Added 'isbn-error' class
+  
+  
+    const submitButton = document.createElement('input');
+    submitButton.type = 'submit';
+    submitButton.value = 'Save';
+  
+    // Appending the input,label ,error elements and submit button to the form
+    form.appendChild(nameLabel);
+    form.appendChild(nameInput);
+    form.appendChild(nameError);
+    form.appendChild(document.createElement('br'));
+  
+    form.appendChild(biographyLabel);
+    form.appendChild(biographyInput);
+    form.appendChild(biographyError);
+    form.appendChild(document.createElement('br'));
+  
+    form.appendChild(submitButton);
+  
+    // Adding an event listener to the form's submit event
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();       // Preventing form submission
+      const formData = new FormData(form);
+      const editedAuthor = Object.fromEntries(formData.entries());
+
+    // Calling the function to handle form submission and update book details
+      handleEditAuthorFormSubmit(author, editedAuthor, form); 
+    });
+
+    // Clearing the form
+    const editAuthorFormContainer = document.getElementById('editAuthorFormContainer');
+    editAuthorFormContainer.innerHTML = '';
+    editAuthorFormContainer.appendChild(form);
+}
+
+
+// This function performs the PUT request/method , to update the selected author
+function handleEditAuthorFormSubmit(author, editedAuthor, form) {
+    // Declaring the Error variable 
+    const nameError = form.querySelector('.name-error');
+    const biographyError = form.querySelector('.biography-error');
+
+  
+    const updatedAuthor = {
+      id: author.id,
+      ...editedAuthor,
+    };
+  
+    fetch(`/api/authors/${author.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedAuthor)
+    })
+      .then(response => {
+        if (response.ok || response.status === 204) {
+          // Author updated successfully
+          // Displaying success message
+          const successMsgElement = document.getElementById('authorSuccessMsg');
+          if (successMsgElement) {
+            successMsgElement.textContent = 'Author updated successfully!';
+            successMsgElement.style.display = 'block';
+            // Hiding the success message after 3 seconds
+            setTimeout(() => {
+              successMsgElement.style.display = 'none';
+            }, 2000);
+          }
+  
+          // Reloading the author details to reflect the changes
+          fetch(`/api/authors/${author.id}`)
+            .then(response => response.json())
+            .then(author => {
+              clearAuthorDetails();
+              displayAuthorDetails(author);
+              // Reseting the error variables when a updating is successfull
+              nameError.textContent = '';
+              biographyError.textContent = '';
+            })
+            .catch(error => console.log(error));
+        } else if (response.status === 400) {
+          // Error updating the author
+          response.json().then(data => {
+            // The data that returns from the server when the status is 400, is a string which describes the field and the problem
+              if (data[""]) {
+                const errorMessage = data[""][0];
+                // Setting the proper error message
+                if (errorMessage.includes("Name")) {
+                    nameError.textContent = errorMessage;
+                }
+                if (errorMessage.includes("Biography")) {
+                    biographyError.textContent = errorMessage;
+                }
+            }
+          });
+        } else {
+          console.log('Error updating author:', response.status);
+        }
+      })
+      .catch(error => console.log(error));
+}
+
+
+// This function handles the remove of a specific author from the database
+function handleRemoveAuthorButtonClick(author) {
+    // Fetching the API endpoint and sending a request to remove the author via author.id
+    fetch(`api/authors/${author.id}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok || response.status === 204) {
+            // Author removed successfully
+            // Display success message or perform any necessary actions
+            const successMsgElement = document.getElementById('authorSuccessMsg');
+            if (successMsgElement) {
+              successMsgElement.textContent = 'Author removed successfully!';
+              successMsgElement.style.display = 'block';
+              // Hiding the success message after 3 seconds
+              setTimeout(() => {
+                successMsgElement.style.display = 'none';
+              }, 2000);
+              
+            }
+            console.log('Author removed successfully!');
+        } else {
+            // Error removing the author
+            console.log('Error removing author:', response.status);
+        }
+    })
+    .catch(error => console.log(error));
+}
+
+
+// Helper function to create field container for the biography in Author entity and serves AddNewAuthor()
+function createBiographyFieldContainer(labelText, fieldName, details) {
+    const fieldContainer = document.createElement('div');
+
+    // Creating label for the field
+    const label = document.createElement('label');
+    label.textContent = labelText;
+
+    // Creating input element for the field
+    let input
+    input = document.createElement('textarea');
+    input.rows = 5;
+    input.cols = 37;
+    input.required = true;
+
+    input.name = fieldName;
+
+    // Creating the question mark icon and field details popup for the field
+    const detailsIcon = document.createElement('span');
+    detailsIcon.classList.add('field-details-icon');
+    detailsIcon.textContent = '?';
+
+    const detailsPopup = createFieldDetailsPopup(details);
+
+    // Creating error element for the field
+    const error = document.createElement('div');
+    error.classList.add(`${fieldName}-error`);
+
+    // Handling click event on the details icon to show/hide the popup
+    handleDetailsIconHover(detailsIcon, detailsPopup);
+
+    // Appending label, input, details icon, error element, and details popup to the field container
+    fieldContainer.appendChild(label);
+    fieldContainer.appendChild(input);
+    fieldContainer.appendChild(detailsIcon);
+    fieldContainer.appendChild(error);
+    fieldContainer.appendChild(detailsPopup);
+
+    return fieldContainer;
+}
+
+
+// This function creates the Form to add a new author with the help of sub functions that were declared separately 
+function AddNewAuthor() {
+    // Creating a form element
+    const addAuthorForm = document.createElement('form');
+
+    // Creating field containers for each field
+    const nameFieldContainer = createFieldContainer('Name: ', 'name', 'Name should be between 4-20 characters, English letters only.');
+    const biographyFieldContainer = createBiographyFieldContainer('Biography: ', 'biography', 'Biography should be between 10-1200 characters.');
+
+    const submitButton = document.createElement('input');
+    submitButton.type = 'submit';
+    submitButton.value = 'Add';
+
+    addAuthorForm.appendChild(nameFieldContainer);
+    addAuthorForm.appendChild(biographyFieldContainer);
+    addAuthorForm.appendChild(submitButton);
+
+    // Adding an event listener to the form's submit event
+    addAuthorForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Preventing form submission
+        const formData = new FormData(addAuthorForm);
+        const newAuthor = Object.fromEntries(formData.entries());
+
+        // Calling the function to handle form submission and add a new book
+        handleAddAuthorSubmit(newAuthor, addAuthorForm);
+    });
+
+    // Clearing the form
+    const formContainer = document.getElementById('editAuthorFormContainer');
+    formContainer.innerHTML = '';
+    formContainer.style.display = 'block';
+
+    formContainer.appendChild(addAuthorForm);
+}
+
+
+// This function handles the AddNewAuthor submission , returns a success message or an error message accordingly
+function handleAddAuthorSubmit(newAuthor, form) {
+    const nameError = form.querySelector('.name-error');
+    const biographyError = form.querySelector('.biography-error');
+
+    nameError.textContent = '';
+    biographyError.textContent = '';
+
+    fetch('/api/authors', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newAuthor),
+    })
+    .then(response => {
+        if (response.ok || response.status === 204) {
+            const successMsgElement = document.getElementById('authorSuccessMsg');
+            if (successMsgElement) {
+                successMsgElement.textContent = 'Author added successfully!';
+                successMsgElement.style.display = 'block';
+                setTimeout(() => {
+                    successMsgElement.style.display = 'none';
+                }, 2000);
+            }
+        } else if (response.status === 400) {
+          // Error updating the author
+          response.json().then(data => {
+            console.log(data);
+            // Displaying error messages for each field
+            if (data.name) {
+                nameError.textContent = data.name;
+            }
+            if (data.biography) {
+                biographyError.textContent = data.biography;
+            }
+            // The data that returns from the server when the status is 400, is a string which describes the field and the problem
+              if (data[""]) {
+                const errorMessage = data[""][0];
+                // Setting the proper error message
+                if (errorMessage.includes("Name")) {
+                    nameError.textContent = errorMessage;
+                }
+                if (errorMessage.includes("Biography")) {
+                    biographyError.textContent = errorMessage;
+                }
+            }
+          });
+        } else {
+            console.log('Error adding author:', response.status);
+        }
+    })
+    .catch(error => console.log(error));
+}
+
+
+// This function handles the remove of a specific author from the database
+function handleRemoveAuthorButtonClick(author) {
+    // Fetching the API endpoint and sending a request to remove the book via book.id
+    fetch(`api/authors/${author.id}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok || response.status === 204) {
+            // Author removed successfully
+            // Display success message or perform any necessary actions
+            const successMsgElement = document.getElementById('authorSuccessMsg');
+            if (successMsgElement) {
+              successMsgElement.textContent = 'Author removed successfully!';
+              successMsgElement.style.display = 'block';
+              // Hiding the success message after 3 seconds
+              setTimeout(() => {
+                successMsgElement.style.display = 'none';
+              }, 2000);
+              
+            }
+            console.log('Author removed successfully!');
+        } else {
+            // Error removing the author
+            console.log('Error removing author:', response.status);
+        }
+    })
+    .catch(error => console.log(error));
 }

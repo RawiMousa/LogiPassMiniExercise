@@ -71,6 +71,17 @@ namespace MyLibrary.Controllers
                 return NotFound();
             }
 
+            // Validating the author details using the custom validation module BookValidation
+            List<string> validationErrors = AuthorValidation.ValidateAuthor(updatedAuthor, _authorRepository);
+            if (validationErrors.Count > 0)
+            {
+                foreach (var error in validationErrors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+                return BadRequest(ModelState);
+            }
+
             existingAuthor.Name = updatedAuthor.Name;
             existingAuthor.Biography = updatedAuthor.Biography;
          

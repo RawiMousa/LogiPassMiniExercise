@@ -21,12 +21,18 @@
 <body>
     <nav>
         <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="/" onclick="Home()">Home</a></li>
             <li><a href="#" onclick="loadBooks()" >Books</a></li>
             <li><a href="#" onclick="loadAuthors()">Authors</a></li>
         </ul>
     </nav>
    <h1>MyLibrary</h1>
+   <p id="HomeIntro" style="display: block;">This mini project is developed for Logipass.<br> 
+   The project utilizes different technologies for the backend and user interface.<br>
+    The backend is implemented using C# programming language with the 'Project Sdk='Microsoft.NET.Sdk.Web'' template,<br>
+ which provides a framework for developing web applications. <br>
+ On the frontend, the user interface is built using plain JavaScript (JS), HTML, and CSS.<br>
+  These technologies enable the creation of a dynamic and interactive user experience</p>
 
     <a id="addNewBook" style="display: none;" onclick="handleAddNewBookClick()">Add a new book</a>
 
@@ -45,9 +51,18 @@
     <div class="isbn-error"></div>
     <div class="year-error"></div>
 
+    <a id="addNewAuthor" style="display: none;" onclick="handleAddNewAuthorClick()">Add a new author</a>
+
     <select id="authorDropdown" style="display: none;" ></select>
 
-    <div id="authorDetails"></div>
+    <div id="authorDetails" style="display: block;"></div>
+
+    <p id="authorSuccessMsg" style="display: none;"></p>
+
+    <div id="editAuthorFormContainer" style="display: block;" >
+    </div> 
+
+    @* <div id="HomeIntro" style="display: none;"></div> *@
 
 
 </body>

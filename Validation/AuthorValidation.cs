@@ -14,18 +14,19 @@ namespace MyLibrary.Validation
             string namePattern = @"^[A-Za-z ]{4,20}$";
             bool isValidName = Regex.IsMatch(author.Name, namePattern);
 
-            if (!isValidName)
+            if (!isValidName || string.IsNullOrWhiteSpace(author.Name))
             {
                 errors.Add("Name should be between 4-20 characters, English letters only.");
             }
 
             // Validating the Biography
-            string biographyPattern = @"^[A-Za-z0-9.,!?'""\s]{10,400}$";
+            string biographyPattern = @"^[A-Za-z0-9.,!?'""\s]{10,1200}$";
+
             bool isValidBiography = Regex.IsMatch(author.Biography, biographyPattern);
 
-            if (!isValidBiography)
+            if (!isValidBiography || string.IsNullOrWhiteSpace(author.Biography))
             {
-                errors.Add("Biography should be between 10-400 characters");
+                errors.Add("Biography should be between 10-1200 characters");
             }
 
             return errors;
