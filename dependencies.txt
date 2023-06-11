@@ -1,0 +1,43 @@
+Project 'MyLibrary' has the following package references
+   [net6.0]: 
+   Top-level Package                           Requested   Resolved
+   > Microsoft.EntityFrameworkCore.Design      7.0.5       7.0.5   
+   > Microsoft.EntityFrameworkCore.Sqlite      7.0.5       7.0.5   
+   > Serilog                                   2.12.0      2.12.0  
+   > Serilog.Sinks.Debug                       2.0.0       2.0.0   
+   > Swashbuckle.AspNetCore                    6.2.3       6.2.3   
+
+   Transitive Package                                           Resolved
+   > Humanizer.Core                                             2.14.1  
+   > Microsoft.Data.Sqlite.Core                                 7.0.5   
+   > Microsoft.EntityFrameworkCore                              7.0.5   
+   > Microsoft.EntityFrameworkCore.Abstractions                 7.0.5   
+   > Microsoft.EntityFrameworkCore.Analyzers                    7.0.5   
+   > Microsoft.EntityFrameworkCore.Relational                   7.0.5   
+   > Microsoft.EntityFrameworkCore.Sqlite.Core                  7.0.5   
+   > Microsoft.Extensions.ApiDescription.Server                 3.0.0   
+   > Microsoft.Extensions.Caching.Abstractions                  7.0.0   
+   > Microsoft.Extensions.Caching.Memory                        7.0.0   
+   > Microsoft.Extensions.Configuration.Abstractions            7.0.0   
+   > Microsoft.Extensions.DependencyInjection                   7.0.0   
+   > Microsoft.Extensions.DependencyInjection.Abstractions      7.0.0   
+   > Microsoft.Extensions.DependencyModel                       7.0.0   
+   > Microsoft.Extensions.Logging                               7.0.0   
+   > Microsoft.Extensions.Logging.Abstractions                  7.0.0   
+   > Microsoft.Extensions.Options                               7.0.0   
+   > Microsoft.Extensions.Primitives                            7.0.0   
+   > Microsoft.OpenApi                                          1.2.3   
+   > Mono.TextTemplating                                        2.2.1   
+   > SQLitePCLRaw.bundle_e_sqlite3                              2.1.4   
+   > SQLitePCLRaw.core                                          2.1.4   
+   > SQLitePCLRaw.lib.e_sqlite3                                 2.1.4   
+   > SQLitePCLRaw.provider.e_sqlite3                            2.1.4   
+   > Swashbuckle.AspNetCore.Swagger                             6.2.3   
+   > Swashbuckle.AspNetCore.SwaggerGen                          6.2.3   
+   > Swashbuckle.AspNetCore.SwaggerUI                           6.2.3   
+   > System.CodeDom                                             4.4.0   
+   > System.Memory                                              4.5.3   
+   > System.Runtime.CompilerServices.Unsafe                     6.0.0   
+   > System.Text.Encodings.Web                                  7.0.0   
+   > System.Text.Json                                           7.0.0   
+

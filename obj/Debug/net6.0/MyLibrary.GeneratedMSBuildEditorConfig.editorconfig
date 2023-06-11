@@ -8,17 +8,17 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MyLibrary
 build_property.RootNamespace = MyLibrary
-build_property.ProjectDir = /home/rawimousa/Code/C#/MyLibrary/
+build_property.ProjectDir = /home/rawimousa/Code/CS/MyLibrary/
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /home/rawimousa/Code/C#/MyLibrary
+build_property.MSBuildProjectDirectory = /home/rawimousa/Code/CS/MyLibrary
 build_property._RazorSourceGeneratorDebug = 
 
-[/home/rawimousa/Code/C\#/MyLibrary/Pages/Index.cshtml]
+[/home/rawimousa/Code/CS/MyLibrary/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/rawimousa/Code/C\#/MyLibrary/Pages/_Layout.cshtml]
+[/home/rawimousa/Code/CS/MyLibrary/Pages/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX0xheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

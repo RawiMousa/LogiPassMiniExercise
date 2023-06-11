@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/rawimousa/Code/C#/MyLibrary/MyLibrary.csproj": {}
+    "/home/rawimousa/Code/CS/MyLibrary/MyLibrary.csproj": {}
   },
   "projects": {
-    "/home/rawimousa/Code/C#/MyLibrary/MyLibrary.csproj": {
+    "/home/rawimousa/Code/CS/MyLibrary/MyLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/rawimousa/Code/C#/MyLibrary/MyLibrary.csproj",
+        "projectUniqueName": "/home/rawimousa/Code/CS/MyLibrary/MyLibrary.csproj",
         "projectName": "MyLibrary",
-        "projectPath": "/home/rawimousa/Code/C#/MyLibrary/MyLibrary.csproj",
+        "projectPath": "/home/rawimousa/Code/CS/MyLibrary/MyLibrary.csproj",
         "packagesPath": "/home/rawimousa/.nuget/packages/",
-        "outputPath": "/home/rawimousa/Code/C#/MyLibrary/obj/",
+        "outputPath": "/home/rawimousa/Code/CS/MyLibrary/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/rawimousa/.nuget/NuGet/NuGet.Config"
